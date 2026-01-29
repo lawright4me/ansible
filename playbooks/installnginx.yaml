@@ -1,0 +1,4 @@
+- name: Установка nginx
+  hosts: localhost
+  roles:
+    - nginx

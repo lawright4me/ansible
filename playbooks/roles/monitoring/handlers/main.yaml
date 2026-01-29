@@ -1,0 +1,49 @@
+
+
+---
+- name: restart monitoring stack
+
+  community.docker.docker_compose_v2:
+    project_src: /opt/monitoring
+    state: present
+    restarted: yes
+
+- name: reload prometheus
+
+  community.docker.docker_container_exec:
+    container: prometheus
+    command: killall -HUP prometheus
+
+- name: reload loki
+  community.docker.docker_compose_v2:
+    project_src: /opt/monitoring
+    state: restarted
+    services: [loki]
+  listen: loki_config_changed
+
+- name: reload promtail
+  community.docker.docker_compose_v2:
+    project_src: /opt/monitoring
+    state: restarted
+    services: [promtail]
+  listen: promtail_config_changed
+
+- name: reload grafana
+  community.docker.docker_compose_v2:
+    project_src: /opt/monitoring
+    state: restarted
+    services: [grafana]
+  listen: grafana_config_changed
+
+- name: recreate containers after change docker compose
+  community.docker.docker_compose_v2:
+    project_src: /opt/monitoring
+    state: present
+    build: yes
+  listen: docker_compose_changed
+
+- name: verify containers running
+  community.docker.docker_compose_v2:
+    project_src: /opt/monitoring
+    state: present
+  listen: verify_containers_running

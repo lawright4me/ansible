@@ -1,0 +1,4 @@
+- name: Устанвока grafana
+  hosts: localhost
+  roles:
+    - monitoring

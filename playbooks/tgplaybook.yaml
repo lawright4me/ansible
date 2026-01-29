@@ -1,0 +1,7 @@
+- name: Установка всех пакетов для тг бота
+  hosts: remote_kenia
+  become: yes
+  roles:
+    - git
+    - python
+    - docker

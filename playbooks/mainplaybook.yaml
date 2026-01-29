@@ -1,0 +1,16 @@
+- name: Установка всех необходимых пакетов
+  hosts: localhost
+  vars:
+    ansible_user_dir: "{{ ansible_user | default('root') }}"
+    ansible_user_dir: "/root"
+  roles:
+    - git
+    - java
+    - nginx
+    - postgres
+    - mvn
+    - npm
+    - angular
+    - docker
+    - golang
+    - grafana

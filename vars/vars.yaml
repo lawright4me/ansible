@@ -1,0 +1,3 @@
+postgres_user: "postgres"
+postgres_pass: "123456"
+database_name: "localhost"

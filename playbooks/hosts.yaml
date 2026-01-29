@@ -1,0 +1,12 @@
+all:
+  hosts:
+    localhost:
+      ansible_connection: local
+      ansible_user: root
+      ansible_become: yes
+    remote_kenia:
+      ansible_host: 185.240.49.27
+      ansible_user: root
+      ansible_become: yes
+  vars:
+    ansible_python_insterpreter: /usr/bin/python3

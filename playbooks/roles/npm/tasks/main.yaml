@@ -1,0 +1,6 @@
+- name: Установка Node.js и npm
+  apt:
+    name:
+      - nodejs
+      - npm
+    state: present

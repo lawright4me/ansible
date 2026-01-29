@@ -1,0 +1,4 @@
+- name: Установка mvn
+  apt:
+    name: maven
+    state: present

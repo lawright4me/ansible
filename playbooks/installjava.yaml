@@ -1,0 +1,4 @@
+- name: Установка java
+  hosts: localhost
+  roles:
+    - java

@@ -1,0 +1,6 @@
+- name: Установка postgresql
+  apt:
+    name: 
+      - postgresql
+      - postgresql-contrib
+    state: present

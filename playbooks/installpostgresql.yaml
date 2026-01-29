@@ -1,0 +1,4 @@
+- name: Установка psql
+  hosts: localhost
+  roles:
+    - postgres
