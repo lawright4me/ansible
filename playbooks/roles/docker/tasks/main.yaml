@@ -1,5 +1,45 @@
+- name: Add user to docker group
+
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: yes
+
+- name: Reset ssh connection to allow user changes
+
+  ansible.builtin.meta: reset_connection
+
 - name: Установка Docker
   apt:
     name: docker.io  # или docker.io
     state: present
     update_cache: yes  # рекомендуется для актуальности списка пакетов
+
+
+
+- name: Create Docker CLI plugins directory
+
+  ansible.builtin.file:
+    path: /usr/local/lib/docker/cli-plugins
+    state: directory
+    mode: '0755'
+  become: yes
+
+- name: Download Docker Compose plugin
+
+  ansible.builtin.get_url:
+    url: https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64
+    dest: /usr/local/lib/docker/cli-plugins/docker-compose
+    mode: '0755'
+  become: yes
+
+- name: Verify Docker Compose installation
+
+  ansible.builtin.command: docker compose version
+  register: compose_version
+  changed_when: false
+
+- name: Show Docker Compose version
+
+  ansible.builtin.debug:
+    var: compose_version.stdout
