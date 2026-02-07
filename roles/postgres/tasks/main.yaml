@@ -4,3 +4,28 @@
       - postgresql
       - postgresql-contrib
     state: present
+
+- name: Create a PostgreSQL user
+      postgresql_user:
+        name: "{{ postgres_user }}"
+        password: "{{ postgres_password }}"
+        encrypted: yes
+        db: demo_db
+        priv: "*.*:ALL"
+        state: present
+      become: true
+      become_user: postgres
+
+- name: скопировать backup.sh
+
+  template:
+  dest: "{{ path_backup_sh }}"
+  src: backup.sh.j2
+  mode: '0644'
+
+- name: скопировать backup.service
+
+  template:
+    dest: /etc/systemd/system/backup.service
+    src: backup.service.j2
+    mode: '0644'

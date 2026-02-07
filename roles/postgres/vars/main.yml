@@ -1,0 +1,9 @@
+
+---
+
+postgres_host: "localhost"
+postgres_port: "5432"
+
+backup_dir: "/opt/backups"
+db_name: "postgres"
+path_backup_sh: "/opt/backup.sh"

@@ -1,7 +1,17 @@
+- name: СОздание директории monitoring
+
+  file:
+    path: /opt/monitoring
+    state: directory
+    mode: '0755'
+
 - name: Установить Nginx
   apt:
     name: nginx
     state: present
+
+- name: создание директорий nginx
+
 
 - name: запуск nginx
   service:

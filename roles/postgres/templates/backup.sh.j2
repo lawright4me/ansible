@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Настройки подключения к PostgreSQL
+PGUSER="{{ pg_user }}"
+PGPASSWORD="{{ pg_password }}"
+PGHOST="{{ postgres_host }}"
+PGPORT="{{ postgres_port }}"
+
+# Директория для бэкапов
+BACKUP_DIR="{{ backup_dir }}"
+
+# Текущая дата для имени файла бэкапа
+DATE=$(date +"%Y-%m-%d_%H-%M-%S")
+
+# Название базы данных
+DB_NAME={{ db_name }}
+
+# Создание директории для бэкапов, если её нет
+mkdir -p "$BACKUP_DIR"
+
+# Выполнение бэкапа с помощью pg_dump
+BACKUP_FILE="$BACKUP_DIR/$DB_NAME_$DATE.sql.gz"
+PGPASSWORD="$PGPASSWORD" pg_dump -U "$PGUSER" -h "$PGHOST" -p "$PGPORT" -d "$DB_NAME" > "$BACKUP_FILE"
+
+# Проверка успешности бэкапа
+if [ $? -eq 0 ]; then
+  echo "Бэкап PostgreSQL завершён успешно: $BACKUP_FILE"
+else
+  echo "Ошибка при бэкапе PostgreSQL!"
+fi
+
+# Очистка бэкапов старше 7 дней
+find "$BACKUP_DIR" -type f -name "*.sql" -mtime +7 -exec rm -f {} \;
