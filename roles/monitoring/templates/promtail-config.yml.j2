@@ -1,0 +1,45 @@
+
+# promtail-config.yml
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: {{loki_root_url}}
+
+scrape_configs:
+  # Main application logs
+  - job_name: main-app
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: main
+          app: main-application
+          __path__: /var/log/apps/main/*.log
+    pipeline_stages:
+      - regex:
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}).*\[(?P<level>\w+)\].*'
+      - labels:
+          level:
+      - timestamp:
+          source: timestamp
+          format: '2006-01-02 15:04:05'
+
+  # Frontend logs
+  - job_name: frontend
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: frontend
+          app: frontend-application
+          __path__: /var/log/apps/front/*.log
+    pipeline_stages:
+      - regex:
+          expression: '^(?P<timestamp>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}).*\[(?P<level>\w+)\].*'
+      - labels:
+          level:

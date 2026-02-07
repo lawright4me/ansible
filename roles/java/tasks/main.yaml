@@ -1,0 +1,4 @@
+- name: Установка Java
+  apt:
+    name: openjdk-17-jdk
+    state: present

@@ -1,0 +1,6 @@
+- name: Установка git
+  apt:
+    name: git
+    state: present
+    update_cache: yes
+  when: ansible_os_family == "Debian"
