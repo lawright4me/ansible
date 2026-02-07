@@ -4,6 +4,7 @@
     <option name="orchideRoleLocations">
       <list>
         <option value="$PROJECT_DIR$/playbooks/roles" />
+        <option value="$PROJECT_DIR$/roles" />
       </list>
     </option>
   </component>

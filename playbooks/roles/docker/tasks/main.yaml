@@ -1,5 +1,0 @@
-- name: Установка Docker
-  apt:
-    name: docker.io  # или docker.io
-    state: present
-    update_cache: yes  # рекомендуется для актуальности списка пакетов

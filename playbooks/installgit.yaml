@@ -1,4 +1,0 @@
-- name: Установка git
-  hosts: localhost
-  roles:
-    - git

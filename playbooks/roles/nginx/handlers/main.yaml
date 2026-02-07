@@ -1,4 +1,0 @@
-- name: Перезапуск nginx
-  service:
-    name: nginx
-    state: restarted

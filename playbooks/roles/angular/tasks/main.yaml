@@ -1,5 +1,0 @@
-- name: Установка angular
-  npm:
-    name: "@angular/cli"
-    global: yes
-    state: present
