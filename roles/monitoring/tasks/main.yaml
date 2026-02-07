@@ -1,0 +1,46 @@
+
+
+---
+- name: СОздание директории monitoring
+
+  file:
+    path: /opt/monitoring
+    state: directory
+    mode: '0755'
+
+- name: Создать директорию :/etc/grafana/provisioning и монтировать ее
+
+- name: Скопировать docker-compose.yml
+
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/monitoring/docker-compose.yml
+    mode: '0644'
+
+- name: Скопировать loki-config.yml
+
+  template:
+    dest: /opt/monitoring/loki-config.yml
+    src: loki-config.yml.j2
+    mode: '0644'
+
+- name: Скопировать promtail-config.yml
+
+  template:
+    dest: /opt/monitoring/promtail-config.yml
+    src: promtail-config.yml.j2
+    mode: '0644'
+
+- name: Скопировать prometheus.yml
+
+  template:
+    src: prometheus.yml.j2
+    dest: /opt/monitoring/prometheus.yml
+    mode: '0644'
+
+- name: Запустить docker compose monitoring
+
+  community.docker.docker_compose_v2:
+    project_src: /opt/monitoring
+    state: present
+  notify: verify_containers_running

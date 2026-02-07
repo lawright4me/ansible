@@ -1,0 +1,5 @@
+---
+go_version: "1.23.3"
+go_install_dir: "/usr/local"
+go_workspace_dir: "{{ ansible_user_dir }}/go"
+go_archive_url: "https://go.dev/dl/go{{ go_version }}.linux-amd64.tar.gz"

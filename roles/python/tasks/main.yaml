@@ -1,0 +1,5 @@
+- name: Установка python
+  apt:
+    name: python3
+    state: present
+
